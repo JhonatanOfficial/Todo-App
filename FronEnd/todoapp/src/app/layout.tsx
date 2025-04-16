@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import Image from "next/image";
+import { Container } from "@/components/Container";
 
 const montserrat = Montserrat({
   variable: "--font-geist-sans",
@@ -19,10 +21,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${montserrat.className}`}
-      >
-        {children}
+      <body className={`${montserrat.className}`}>
+        <Container>
+          <header className="py-[48px] flex justify-between items-center">
+            <Image src={"/logo.svg"} alt="Logo Icon" width={83} height={28} />
+            <span className="font-bold">The best Todo App...</span>
+          </header>
+          {children}
+        </Container>
       </body>
     </html>
   );
