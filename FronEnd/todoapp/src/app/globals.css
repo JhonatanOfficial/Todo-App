@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
 @theme inline {
-  
+    --color-primary-color: #007FFF;
+    --color-gray-color: #7c8698;
+    --color-low-blue: #0080ff43;
+    --color-low-red: #ff000038;
+    --shadow-shadow-black: 0px 5px 7px #00000051;
+    --radius-default-rounded: 8px;
 }

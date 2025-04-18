@@ -7,7 +7,7 @@ export interface ITask {
     donedAt?: string;
 }
 
-enum TaskStatus {
+export enum TaskStatus {
     pending,
     inProcess,
     done

@@ -1,10 +1,14 @@
+import { cn } from "@/lib/classMerge";
 
-export const Container = (
-  {children}: {children?: React.ReactNode}
-) => {
+interface ContainerProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+export const Container = ({ children, className }: ContainerProps) => {
   return (
-    <div className="mx-auto w-full max-w-[1100px] px-5">
+    <div className={cn("mx-auto w-full max-w-[1280px] px-5 flex-1 flex flex-col", className)}>
       {children}
     </div>
-  )
-}
+  );
+};

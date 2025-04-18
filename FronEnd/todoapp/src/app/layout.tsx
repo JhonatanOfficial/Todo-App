@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import { Container } from "@/components/Container";
 
-const montserrat = Montserrat({
+const uarbanist = Urbanist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className}`}>
+      <body className={`${uarbanist.className} overflow-x-hidden min-h-screen flex flex-col`}>
         <Container>
           <header className="py-[48px] flex justify-between items-center">
             <Image src={"/logo.svg"} alt="Logo Icon" width={83} height={28} />
