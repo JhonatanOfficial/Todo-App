@@ -10,7 +10,6 @@ import { useTasks } from "@/hooks/useTasks";
 import { TaskService } from "@/services/Task-service";
 import { ITask, TaskStatus } from "@/types/task.interface";
 import { Loader } from "lucide-react";
-import { div } from "motion/react-client";
 import { useState } from "react";
 
 export default function Home() {
