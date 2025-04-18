@@ -1,6 +1,6 @@
 // components/FormEditTask.tsx
 import { Input } from './input'
-import { Container } from './Container'
+import { Container } from './container'
 import { TextArea } from './text-area';
 import { SelectDropDown } from './selectDropDown';
 import { ITask } from '@/types/task.interface';
