@@ -18,7 +18,9 @@ export default function Home() {
   const [taskIdToDelete, setTaskIdToDelete] = useState<string | null>(null);
   const [openModal, setOpenModal] = useState(false);
 
-  const handleEditTask = (task: ITask) => setSelectedEditTask(task);
+  const handleEditTask = (task: ITask) =>{
+    setSelectedEditTask(task)
+  };
 
   const handleDeleteRequest = (id: string) => {
     setTaskIdToDelete(id);
@@ -54,7 +56,7 @@ export default function Home() {
         :
         <section className="flex justify-between gap-y-8 gap-x-5 flex-wrap ">
           {filteredTasks.pending.length > 0 && (
-            <TaskListLayout label="Pendent">
+            <TaskListLayout label="Pendente">
               {filteredTasks.pending.map(task => (
                 <TaskCard
                   key={task.id}
@@ -67,12 +69,14 @@ export default function Home() {
           )}
 
           {filteredTasks.inProgress.length > 0 && (
-            <TaskListLayout label="In Progress">
+            <TaskListLayout label="Em Progresso">
               {filteredTasks.inProgress.map(task => (
                 <TaskCard
                   key={task.id}
                   task={task}
-                  editTask={() => handleEditTask(task)}
+                  editTask={() => {
+                    handleEditTask(task)
+                  }}
                   deleteTask={() => handleDeleteRequest(task.id!)}
                 />
               ))}
@@ -80,7 +84,7 @@ export default function Home() {
           )}
 
           {filteredTasks.done.length > 0 && (
-            <TaskListLayout label="Done">
+            <TaskListLayout label="Concluída">
               {filteredTasks.done.map(task => (
                 <TaskCard
                   key={task.id}

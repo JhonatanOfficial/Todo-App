@@ -1,11 +1,12 @@
-// components/FormEditTask.tsx
+"use client"
+
 import { Input } from './input'
 import { Container } from './container'
 import { TextArea } from './text-area';
 import { SelectDropDown } from './selectDropDown';
 import { ITask } from '@/types/task.interface';
 import { TaskService } from '@/services/Task-service';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 interface FormEditTaskProps {
   openEditTaskComponent?: boolean;
@@ -15,6 +16,8 @@ interface FormEditTaskProps {
 }
 
 export const FormEditTask = ({ openEditTaskComponent = false, closeFormEditTask, task, onTaskUpdated }: FormEditTaskProps) => {
+  if (!openEditTaskComponent) return null;
+  const [alert, setAlert] = useState<string>();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -25,21 +28,16 @@ export const FormEditTask = ({ openEditTaskComponent = false, closeFormEditTask,
       title: (form.elements.namedItem("title") as HTMLInputElement).value,
       description: (form.elements.namedItem("description") as HTMLInputElement).value,
       createdAt: (form.elements.namedItem("createdAt") as HTMLInputElement).value,
-      donedAt: (form.elements.namedItem("donedAt") as HTMLInputElement).value,
+      donedAt: (form.elements.namedItem("donedAt") as HTMLInputElement).value || null,
       status: +(form.elements.namedItem("status") as HTMLSelectElement).value,
     };
 
-    const response = await TaskService.updateTask(task.id!, updatedTask);
-    console.log(response.message);
-
-    if (onTaskUpdated && response.task) {
-      onTaskUpdated(response.task);
-    }
-
-    closeFormEditTask?.();
-  };
-
-  if (!openEditTaskComponent) return null;
+      const response = await TaskService.updateTask(task.id!, updatedTask);
+      if (onTaskUpdated && response.task) {
+        onTaskUpdated(response.task);
+      }
+      setAlert(response.message)
+    };
 
   return (
     <section className='fixed inset-0 flex items-center z-[999] overflow-y-auto bg-[#0007] p-5'>
@@ -56,6 +54,7 @@ export const FormEditTask = ({ openEditTaskComponent = false, closeFormEditTask,
               <SelectDropDown name="status" defaultValue={task.status} />
             </div>
           </div>
+        <span className='font-semibold'>{alert}</span>
           <div className='flex justify-end gap-3 mt-5'>
             <button className='bg-low-blue p-2 rounded-default-rounded cursor-pointer'>
               Save

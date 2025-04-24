@@ -7,5 +7,5 @@ public interface ITaskService
     public Task<List<TaskModel>> GetAllTasks();
     public Task<TaskModel?> CreateNewTask(TaskModel Task);
     public Task<TaskModel?> DeleteTask(int Id);
-    public Task<TaskModel?> UpdateTask(int Id, TaskModel Task);
+    public Task<ResponseModel?> UpdateTask(int Id, TaskModel Task);
 }

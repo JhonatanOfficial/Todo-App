@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using TodoAppApi.Controllers;
 using TodoAppApi.Models;
@@ -21,7 +22,7 @@ public class TaskService : ITaskService
         if (string.IsNullOrWhiteSpace(Task.Title)) return null;
         if (Task.Status == TaskStatusEnum.Done)
         {
-            Task.DonedAtd = DateTime.Now;
+            Task.DonedAt = DateTime.Now;
         }
         _storeContext.Tasks.Add(Task);
         var response = await _storeContext.SaveChangesAsync();
@@ -39,23 +40,35 @@ public class TaskService : ITaskService
 
         return task;
     }
-    public async Task<TaskModel?> UpdateTask(int Id, TaskModel Task)
+    public async Task<ResponseModel?> UpdateTask(int Id, TaskModel Task)
     {
         if (Id != Task.Id) return null;
 
         var existingTask = await _storeContext.Tasks.FindAsync(Id);
 
-        if (existingTask == null) return null;
-        if (Task.Status == TaskStatusEnum.Done && existingTask.Status != TaskStatusEnum.Done)
+        if (existingTask == null) return new ResponseModel { Message = "Tarefa não encontrada." };
+
+        if (JsonSerializer.Serialize(Task) == JsonSerializer.Serialize(existingTask)) return new ResponseModel { Message = "Necessário alterar algum campo para prosseguir com a alteração." };
+
+        if (Task.DonedAt != null && (Task.DonedAt < Task.CreatedAt || Task.DonedAt > DateTime.Now))
         {
-            existingTask.DonedAtd = DateTime.Now;
+            return new ResponseModel { Message = "A data de conclusão não pode ser menor que a data de criação e nem maior que a data de hoje." };
         }
 
-        _storeContext.Entry(existingTask).CurrentValues.SetValues(Task);
+        if (Task.Status == TaskStatusEnum.Done && existingTask.Status != TaskStatusEnum.Done)
+        {
+            Task.DonedAt = DateTime.Now;
+        }
+        else if (Task.Status != TaskStatusEnum.Done && existingTask.Status == TaskStatusEnum.Done)
+        {
+            Task.DonedAt = null;
+        }
 
+        if (Task.DonedAt != null) Task.Status = TaskStatusEnum.Done;
+
+        _storeContext.Entry(existingTask).CurrentValues.SetValues(Task);
         await _storeContext.SaveChangesAsync();
 
-        return existingTask;
+        return new ResponseModel { Message = "Tarefa atualizada com sucesso.", Task = existingTask };
     }
-
 }

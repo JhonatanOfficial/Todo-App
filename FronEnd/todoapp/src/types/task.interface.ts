@@ -4,7 +4,7 @@ export interface ITask {
     description?: string;
     createdAt?: string;
     status?: TaskStatus;
-    donedAt?: string;
+    donedAt?: string | null;
 }
 
 export enum TaskStatus {

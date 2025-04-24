@@ -25,7 +25,7 @@ export default function RootLayout({
         <Container>
           <header className="py-[48px] flex justify-between items-center">
             <Image src={"/logo.svg"} alt="Logo Icon" width={83} height={28} />
-            <span className="font-bold">The best Todo App...</span>
+            <span className="font-bold">O melhor gerenciador de tarefas...</span>
           </header>
           {children}
         </Container>

@@ -28,31 +28,29 @@ public class TaskController : ControllerBase
         {
             return BadRequest(new ResponseModel
             {
-                Message = "Failed to create the task. Make sure the \"Title\" field was filled in.",
+                Message = "Falha ao criar a tarefa. Certifique-se que o campo \"Título\" está preenchido",
             });
         }
-        return Ok(new ResponseModel { Message = "Task created successfully.", Task = response });
+        return Ok(new ResponseModel { Message = "Tarefa criado com sucesso.", Task = response });
     }
 
-    [HttpDelete("DeleteTask/{id}")]
+    [HttpDelete("DeleteTask/{Id:int}")]
     public async Task<ActionResult<ResponseModel>> DeleteTask(int Id)
     {
-
         var response = await _service.DeleteTask(Id);
-        if (response is null) return BadRequest(new ResponseModel
+        if (response is null) return NotFound(new ResponseModel
         {
-            Message = "Task not found",
+            Message = "Tarefa não encontrada",
         });
-        return Ok(new ResponseModel { Message = "Task successfully deleted." });
+        return Ok(new ResponseModel { Message = "Tarefa deletada com sucesso" });
     }
 
-    [HttpPost("UpdateTask/{Id}")]
+    [HttpPut("UpdateTask/{Id:int}")]
     public async Task<ActionResult<ResponseModel>> UpdateTask([FromRoute] int Id, [FromBody] TaskModel Task)
     {
         var response = await _service.UpdateTask(Id, Task);
-        if(response is null) return BadRequest(
-            new ResponseModel{Message = "Error updating task"}
-        );
-        return Ok(new ResponseModel{Message = "Task updated successfully", Task = response});
+        if(response?.Task is null) return BadRequest(response);
+        return Ok(response);
     }
+
 }

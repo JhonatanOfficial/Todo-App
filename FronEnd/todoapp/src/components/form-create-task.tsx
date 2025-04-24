@@ -51,8 +51,8 @@ export const FormCreateTask = ({ onTaskCreated }: FormCreateTaskProps) => {
               name="task"
               id="task"
               type="text"
-              label="Title"
-              placeholder="Tell us your new task"
+              label="Título"
+              placeholder="Informe sua tarefa"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -67,7 +67,7 @@ export const FormCreateTask = ({ onTaskCreated }: FormCreateTaskProps) => {
           label="Description"
           name="description"
           id="description"
-          placeholder="Do you want to add a description?"
+          placeholder="Que tal adicionar uma descrição?"
         />
 
         <button

@@ -4,6 +4,9 @@ import axios from "axios";
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_ROUTE,
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 export class TaskService {
@@ -15,7 +18,6 @@ export class TaskService {
   public static async CreateNewTask(task: ITask): Promise<IResponse> {
     try {
       const response = await axiosInstance.post("/CreateNewTask", task);
-      console.log(response);
       return response.data;
     } catch (error: any) {
       if (error.response && error.response.data) {
@@ -41,7 +43,7 @@ export class TaskService {
 
   public static async updateTask(id: string, task: ITask): Promise<IResponse> {
     try {
-      const response = await axiosInstance.post(`UpdateTask/${id}`, task);
+      const response = await axiosInstance.put(`UpdateTask/${id}`, task);
       return response.data;
     }catch(error: any) {
       if(error.response && error.response.data) {

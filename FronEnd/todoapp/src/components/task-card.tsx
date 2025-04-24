@@ -6,8 +6,8 @@ import { Pencil, X } from 'lucide-react';
 interface TaskCardProps {
     editTask: VoidFunction;
     deleteTask: VoidFunction;
-    onSelectedTask?: (task: ITask) => void;
-    onUnSelectedTask?: (task: ITask) => void;
+    onSelectedCheckBoxTask?: (task: ITask) => void;
+    onUnSelectedCheckBoxTask?: (task: ITask) => void;
     task: ITask
 };
 
@@ -24,9 +24,9 @@ export const TaskCard = ({ ...props }: TaskCardProps) => {
         const checked = e.target.checked;
 
         if (checked) {
-            props.onSelectedTask?.(props.task);
+            props.onSelectedCheckBoxTask?.(props.task);
         } else {
-            props.onUnSelectedTask?.(props.task);
+            props.onUnSelectedCheckBoxTask?.(props.task);
         }
     };
 

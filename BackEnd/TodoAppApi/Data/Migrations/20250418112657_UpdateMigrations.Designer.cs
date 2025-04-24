@@ -12,8 +12,8 @@ using TodoAppApi.Controllers;
 namespace TodoAppApi.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250417030636_UpdateTaskModel")]
-    partial class UpdateTaskModel
+    [Migration("20250418112657_UpdateMigrations")]
+    partial class UpdateMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace TodoAppApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DonedAtd")
+                    b.Property<DateTime?>("DonedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")

@@ -37,7 +37,7 @@ namespace TodoAppApi.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DonedAtd")
+                    b.Property<DateTime?>("DonedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")

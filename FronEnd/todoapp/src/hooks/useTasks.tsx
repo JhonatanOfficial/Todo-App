@@ -12,8 +12,8 @@ export const useTasks = () => {
 
   const addTask = (task: ITask) => setTasks(prev => [...prev, task]);
 
-  const updateTask = (updated: ITask) => {
-    setTasks(prev => prev.map(task => task.id === updated.id ? updated : task));
+  const updateTask = (updatedTask: ITask) => {
+    setTasks(prev => prev.map(task => task.id === updatedTask.id ? updatedTask : task));
   };
 
   const deleteTask = (id: string) => {
